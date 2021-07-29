@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MyFlaskApp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    {% include 'includes/_navbar.html' %}
+
+    <div class="container">
+        <div class="jumbotron">
+          <h1 class="text-center">Disaster Response Response</h1>
+          <p class="text-center">Analyzing message data for disaster response</p>
+
+          {% from "includes/_formhelpers.html" import render_field %}
+          <form action="go" method="POST">
+            
+            <div class="form-group">
+              <!-- <input type="text" name="query" class="form-control" placeholder="Enter a message to classify" > -->
+              {{render_field(form.query, class_="form-control", placeholder="Enter a message to classify" )}}
+            </div>
+            
+            <p><input type="submit" class="btn btn-success center-block" value="Classify Message"></p>
+          </form>
+
+        </div>
+
+      {% block body %}{% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
