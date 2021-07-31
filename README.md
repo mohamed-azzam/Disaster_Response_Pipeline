@@ -128,8 +128,6 @@ pipenv install -r ./requirements.txt
 
 ## How Program Work
 
-![2021-07-31_11-16](.res/img/2021-07-31_11-16.png)
-
 ![2021-07-31_11-17](.res/img/2021-07-31_11-17.png)
 
 ![2021-07-31_11-23](.res/img/2021-07-31_11-23.png)
