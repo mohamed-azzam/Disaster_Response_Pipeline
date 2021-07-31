@@ -19,6 +19,8 @@ with open(Pkl_Filename, 'rb') as file:
 # load the dataset
 df = load_data()
 
+print(df.columns)
+print(df['offer'].sum())
 
 
 def charts():

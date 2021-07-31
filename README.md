@@ -61,21 +61,7 @@ WTForms==2.3.3
 pipenv install -r ./requirements.txt
 ```
 
-## Run Program
-
-- Run the following commands in the project's root directory to set up your database and model.
-
-  ```bash
-  python models/train_classifier.py messages.csv categories.csv
-  ```
-
-- Run the following commands in the project’s root directory to run Web Application 
-
-  ```bash
-  python run.py
-  ```
-
-  
+![image-20210731100149581](.res/img/image-20210731100149581.png)
 
 ## File Structure
 
@@ -119,6 +105,34 @@ pipenv install -r ./requirements.txt
 ├── setup.py
 
 ```
+
+
+
+## Run Program
+
+- Run the following commands in the project's root directory to set up your database and model.
+
+  ```bash
+  python models/train_classifier.py models/messages.csv models/categories.csv
+  ```
+
+  ![image-20210731100512013](.res/img/image-20210731100512013.png)
+
+- Run the following commands in the project’s root directory to run Web Application 
+
+  ```bash
+  python run.py
+  ```
+
+  ![image-20210731101017149](.res/img/image-20210731101017149.png)
+
+## How Program Work
+
+![2021-07-31_11-16](.res/img/2021-07-31_11-16.png)
+
+![2021-07-31_11-17](.res/img/2021-07-31_11-17.png)
+
+![2021-07-31_11-23](.res/img/2021-07-31_11-23.png)
 
 ## Acknowledgements
 

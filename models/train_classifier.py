@@ -37,6 +37,14 @@ from sklearn.metrics import classification_report
 
 
 def tokenize(text):
+    """[normalization corpus]
+
+    Args:
+        text ([Numpy array])
+
+    Returns:
+        [Numpy array]
+    """
     # normalizarion
     text = text.lower()
     text = text.strip()
@@ -59,6 +67,9 @@ def tokenize(text):
     return doc
 
 def evaluation(X_test, y_test, y, model):
+    """[classification report]
+
+    """
     # predict on test data
     y_pred = model.predict(X_test)
 
@@ -67,24 +78,27 @@ def evaluation(X_test, y_test, y, model):
 # ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬MAIN FUNCTIONS▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
 def load_data(MESSAGE_DF_PATH, CAT_DF_PATH):
+    """[load the dataset]
+
+    """
 
     # read in file and clean data
     etl_pipeline.main(MESSAGE_DF_PATH, CAT_DF_PATH)
 
     # load to database
-    con = sqlite3.connect('DisasterResponse.db')
-    df = pd.read_sql_query("SELECT * FROM Message", con)
+    con = sqlite3.connect('messages_categories.db')
+    df = pd.read_sql_query("SELECT * FROM messages_categories", con)
 
 
     # define features and label arrays
     X = df.message
-    y = df.iloc[:, 6:]
+    y = df.iloc[:, 5:]
 
     return X, y
 
 
 def build_model():
-    # text processing and model pipeline
+    """ text processing and model pipeline """
     pipeline = Pipeline([
         ('tfidf', TfidfVectorizer(tokenizer=tokenize)),
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
@@ -107,7 +121,7 @@ def build_model():
 
 
 def train(X, y, model):
-    # train test split
+    """test split and train model """
     X_train, X_test, y_train, y_test = train_test_split(X, y)
 
 
@@ -121,7 +135,7 @@ def train(X, y, model):
 
 
 def export_model(model):
-    # Export model as a pickle file
+    """Export model as a pickle file"""
     Pkl_Filename = "message_category.pkl"  
 
     with open(Pkl_Filename, 'wb') as file:  
@@ -130,6 +144,7 @@ def export_model(model):
 
 
 def run_pipeline(MESSAGE_DF_PATH, CAT_DF_PATH): 
+    """ The main function to traing model and export it"""
     
     print('MESSAGE Step II: Data Wrangling')
     X, y = load_data(MESSAGE_DF_PATH, CAT_DF_PATH)  # run ETL pipeline

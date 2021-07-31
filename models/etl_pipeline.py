@@ -7,21 +7,45 @@ import helper
 
 
 def load_data(MESSAGE_DF_PATH, CAT_DF_PATH):
-    """load the csv dataset"""
+    """load the message and category dataset
+
+    Args:
+        MESSAGE_DF_PATH ([strign]): [message dataset]
+        CAT_DF_PATH ([strign]): [category dataset]
+
+    Returns:
+        [dataframe]: [return message and category dataframe]
+    """
     message_df =  pd.read_csv(f'{MESSAGE_DF_PATH}')
     categories_df =  pd.read_csv(f'{CAT_DF_PATH}')
 
     return message_df, categories_df
 
 def merge_datesets(dataSet_1, dataSet_2, on='id'):
-    """merge the datasets"""
+    """[merge message and category dataset]
+
+    Args:
+        dataSet_1 ([Dataframe]): 
+        dataSet_2 ([Dataframe]): 
+        on (str, optional): [merge default column]. Defaults to 'id'.
+
+    Returns:
+        [type]: [description]
+    """
     df = pd.merge(dataSet_1,dataSet_2,on=on)
 
     return df
 
 
 def transform_category_col(col):
-    """transform category column"""
+    """[convert string column to int]
+
+    Args:
+        col ([list]): [columns list]
+
+    Returns:
+        [dataframe]
+    """
 
     # split the cat columns
     cat_df = helper.split_col(col)
@@ -36,7 +60,15 @@ def transform_category_col(col):
 
 
 def df_transform(df, cat_df):
-    """make transformation to df"""
+    """[Add category dataframe to main dataframe and drop category column in main dataframe]
+
+    Args:
+        df ([dataframe]): [main dataframe]
+        cat_df ([dataframe]): [category dataframe]
+
+    Returns:
+        [dataframe]
+    """
 
     # drop cat col
     df.drop(['categories'], axis=1, inplace=True)
@@ -51,6 +83,12 @@ def df_transform(df, cat_df):
 
 
 def export_sql(df, table_name):
+    """[export the main dataframe to sqlite database]
+
+    Args:
+        df ([dataframe]): [the main dataframe]
+        table_name ([string]): [table name]
+    """
 
     engine = create_engine(f'sqlite:///{table_name}.db')
     try:
@@ -62,6 +100,15 @@ def export_sql(df, table_name):
 
 
 def main(MESSAGE_DF_PATH, CAT_DF_PATH):
+    """[The main fuction to run etl pipeline for datasets]
+
+    Args:
+        MESSAGE_DF_PATH ([string]): [messages dataset]
+        CAT_DF_PATH ([string]): [category dataset]
+
+    Returns:
+        [dataframe]: [dataframe after make data wrangling]
+    """
 
     print('MESSAGE: Step 1 Load dataSets')
     message_df, categories_df = load_data(MESSAGE_DF_PATH, CAT_DF_PATH)       
@@ -70,7 +117,7 @@ def main(MESSAGE_DF_PATH, CAT_DF_PATH):
     print('MESSAGE: Step 2 Merge the datasets on `id`')
     df = merge_datesets(message_df, categories_df)
 
-    print('MESSAGE: Step 3 Category column transfomation')
+    print('MESSAGE: Step 3 Category column transformation')
     cat_df = transform_category_col(df.categories)
 
     print('MESSAGE: Step 4 Add cat_df to df and drop cat col')

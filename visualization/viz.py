@@ -40,7 +40,35 @@ def return_figures():
 
     )	
 
+# second bar chart for top 10 categories
+	graph_two = []
+
+	x_val = []
+	y_val = []
+
+	for i in df.columns[5:]:
+		x_val.append(i)
+		y_val.append(df[i].sum())
+
+	y_val, x_val = zip(*sorted(zip(y_val, x_val)))
+
+	graph_two.append(
+          go.Bar(
+          x = x_val[::-1][:10],
+          y = y_val[::-1][:10],
+        )
+
+	    
+	)
+
+	layout_two = dict(title = 'Top 10 Categories Count',
+ 		        xaxis = dict(title = 'Category',),
+                yaxis = dict(title = 'Count'),
+
+    )	
+
 # append all charts to the figures list
 	figures = []
 	figures.append(dict(data=graph_one, layout=layout_one))
+	figures.append(dict(data=graph_two, layout=layout_two))
 	return figures
