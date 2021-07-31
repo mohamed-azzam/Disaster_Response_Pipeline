@@ -89,7 +89,8 @@ def export_sql(df, table_name):
         df ([dataframe]): [the main dataframe]
         table_name ([string]): [table name]
     """
-
+    df = df.drop(df[df.related == 2].index, axis=0)
+    
     engine = create_engine(f'sqlite:///{table_name}.db')
     try:
         df.to_sql('messages_categories', engine, index=False)
