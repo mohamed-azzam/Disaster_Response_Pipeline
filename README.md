@@ -110,7 +110,7 @@ pipenv install -r ./requirements.txt
 
 ## Run Program
 
-- Run the following commands in the project's root directory to set up your database and model.
+- Run the following commands in the project's root directory to execute data preprocessing, training model and export model.
 
   ```bash
   python models/train_classifier.py models/messages.csv models/categories.csv
